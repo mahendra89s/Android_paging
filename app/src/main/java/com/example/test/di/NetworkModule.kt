@@ -1,5 +1,6 @@
 package com.example.test.di
 
+import com.example.test.data.PhotoPagingSource
 import com.example.test.data.Repository
 import com.example.test.data.RepositoryImpl
 import com.example.test.utils.Constants
@@ -50,7 +51,12 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRepo(retrofit: Retrofit) : Repository = RepositoryImpl(retrofit)
+    fun provideRepo(
+        retrofit: Retrofit,
+        photoPagingSource: PhotoPagingSource
+    ) : Repository = RepositoryImpl(retrofit, photoPagingSource)
 
 
+    @Provides
+    fun providePagingSource(retrofit: Retrofit) : PhotoPagingSource = PhotoPagingSource(retrofit)
 }
